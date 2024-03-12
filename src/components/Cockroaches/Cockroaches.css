@@ -1,0 +1,11 @@
+.Cockroaches {
+    position: relative;
+}
+.Cockroaches-One {
+    position: absolute;
+    font-size: 40px;
+    cursor: pointer;
+}
+.Cockroaches-Start {
+    padding: 10px;
+}
