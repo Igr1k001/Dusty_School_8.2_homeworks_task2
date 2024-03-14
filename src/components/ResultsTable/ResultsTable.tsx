@@ -12,7 +12,7 @@ export const ResultsTable: React.FC<IResultsTableProps> = ({ results }) => {
     return (
         <div className={cnResultsTable()}>
             <div>Лучшие результаты:</div>
-            {results.sort((a, b) => {return a - b}).slice(0, 3).map(item => (
+            {results.map(item => (
                 <div>{item}</div>
             ))}
         </div>

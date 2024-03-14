@@ -8,27 +8,31 @@ import { ResultsTable } from './components/ResultsTable/ResultsTable';
 function App() {
 	const [isStart, setIsStart] = useState(false);
 	const [startGameTime, setStartGameTime] = useState(0);
+	const [GameTime, setGameTime] = useState(0);
 	const [resultsArray, setResultsArray] = useState<number[]>([]);
 
-	const onGameStart = () => {
+	const handleGameStart = () => {
 		setIsStart(true);
 		setStartGameTime(new Date().getTime());
 	}
 
-	const onGameEnd = () => {
+	const handleGameEnd = () => {
 		setIsStart(false);
 
 		const time = Math.floor((new Date().getTime() - startGameTime) / 1000);
 
-		setStartGameTime(time);
-		setResultsArray(prev => [...prev, time]);
+		setGameTime(time);
+
+		const newResult = [...resultsArray, time];
+		
+		setResultsArray(newResult.sort((a, b) => {return a - b}).slice(0, 3))
 	}
 
 	return (
 		<div className="App">
-			{(!isStart && startGameTime) ? <div>Потрачено времени: {startGameTime} секунд</div> : undefined}
-			{!isStart && <button className={cnCockroaches('Start')} onClick={onGameStart}>Начать игру</button>}
-			{isStart && <Cockroaches onGameEnd={onGameEnd} />}
+			{(!isStart && startGameTime) ? <div>Потрачено времени: {GameTime} секунд</div> : undefined}
+			{!isStart && <button className={cnCockroaches('Start')} onClick={handleGameStart}>Начать игру</button>}
+			{isStart && <Cockroaches onGameEnd={handleGameEnd} />}
 			{!isStart && <ResultsTable results={resultsArray} />}
 		</div>
 	);
